@@ -1,3 +1,2 @@
-const API_URL = "http://localhost:3000";
-
-export default API_URL;
+export const BASE_URL =
+  location.hostname === "localhost" ? "http://localhost:3000" : "/api";

@@ -7,7 +7,7 @@ import store from "./utils/appStore";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   return (
-    <>
+    <div data-theme='light'>
       <Provider store={store}>
         <BrowserRouter basename='/'>
           <Routes>
@@ -19,7 +19,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </Provider>
-    </>
+    </div>
   );
 }
 
