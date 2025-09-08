@@ -1,0 +1,178 @@
+// import { useState } from "react";
+// import { useSelector } from "react-redux";
+// import { PencilIcon, CheckIcon } from "@heroicons/react/24/outline";
+// import { motion } from "framer-motion";
+// import axios from "axios";
+// import { BASE_URL } from "../utils/constants.js";
+// import { useDispatch } from "react-redux";
+// import { addUser } from "../utils/userSlice";
+
+// const ProfileCard = () => {
+//   const user = useSelector((state) => state.user);
+//   const dispatch = useDispatch();
+
+//   // local editable state
+//   const [formData, setFormData] = useState({
+//     firstName: user?.firstName || "",
+//     lastName: user?.lastName || "",
+//     emailId: user?.emailId || "",
+//     gender: user?.gender || "Not specified",
+//     about: user?.about || "",
+//     skills: (() => {
+//       // handle skills from array / numeric keys / missing
+//       if (Array.isArray(user?.skills)) return user.skills.join(", ");
+//       if (user && Object.keys(user).some((k) => !isNaN(k))) {
+//         return Object.keys(user)
+//           .filter((k) => !isNaN(k))
+//           .map((k) => user[k])
+//           .join(", ");
+//       }
+//       return "";
+//     })(),
+//   });
+
+//   // track which field is in edit mode
+//   const [editingField, setEditingField] = useState(null);
+
+//   const handleChange = async (field, value) => {
+//     try {
+//       // Update local state immediately (optimistic update)
+//       setFormData((prev) => ({ ...prev, [field]: value }));
+
+//       // Prepare payload for backend
+//       const payload = {
+//         firstName: "Rahul",
+//         lastName: "Karan",
+//         emailId: "rahulkaran@gmail.com",
+//         gender: "male",
+//         about: "hi there",
+//         skills: "cricket, JavaScript, Nodejs, React, Maths",
+//       };
+//       // Convert skills to array
+//       payload.skills = payload.skills.split(",").map((s) => s.trim());
+
+//       // Send API request
+//       const response = await axios.patch(`${BASE_URL}/profile/edit`, payload, {
+//         withCredentials: true,
+//       });
+
+//       console.log(`✅ ${field} updated successfully`, response.data);
+
+//       // Update redux store with fresh user
+//       dispatch(addUser(response.data));
+//     } catch (error) {
+//       console.error(
+//         `❌ Error updating ${field}:`,
+//         error.response?.data || error.message
+//       );
+//     }
+//   };
+
+//   const toggleEdit = (field) => {
+//     if (editingField === field) {
+//       // When closing edit, trigger save for that field
+//       handleChange(field, formData[field]);
+//       setEditingField(null);
+//     } else {
+//       setEditingField(field);
+//     }
+//   };
+
+//   return (
+//     <div className='flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black'>
+//       <motion.div
+//         initial={{ opacity: 0, y: 40 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ duration: 0.6, ease: "easeOut" }}
+//         className='w-full max-w-4xl p-10 bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl'
+//       >
+//         {/* Profile Picture + Name */}
+//         <div className='flex flex-col items-center'>
+//           <div className='relative'>
+//             <img
+//               src={user?.photoUrl || "https://ui-avatars.com/api/?name=User"}
+//               alt='profile'
+//               className='w-32 h-32 rounded-full border-4 border-purple-400 shadow-lg'
+//             />
+//             <button className='absolute bottom-2 right-2 bg-purple-600 text-white p-2 rounded-full shadow hover:bg-purple-700'>
+//               <PencilIcon className='w-4 h-4' />
+//             </button>
+//           </div>
+//           <h2 className='mt-4 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400'>
+//             {formData.firstName} {formData.lastName}
+//           </h2>
+//           <p className='text-gray-300 text-sm text-center'>
+//             {formData.about ||
+//               "Software Developer passionate about building scalable apps."}
+//           </p>
+//         </div>
+
+//         {/* Profile Fields */}
+//         <div className='mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6'>
+//           {[
+//             { key: "firstName", label: "First Name" },
+//             { key: "lastName", label: "Last Name" },
+//             { key: "emailId", label: "Email" },
+//             { key: "gender", label: "Gender" },
+//             { key: "about", label: "About" },
+//             { key: "skills", label: "Skills" },
+//           ].map(({ key, label }) => (
+//             <motion.div
+//               key={key}
+//               whileHover={{ scale: 1.02 }}
+//               className='relative p-4 bg-white/5 border border-white/10 rounded-xl shadow hover:shadow-lg transition'
+//             >
+//               <span className='text-xs text-gray-400'>{label}</span>
+
+//               {editingField === key ? (
+//                 <input
+//                   type='text'
+//                   value={formData[key]}
+//                   onChange={(e) => handleChange(key, e.target.value)}
+//                   onBlur={() => setEditingField(null)}
+//                   autoFocus
+//                   className='w-full bg-transparent border-b border-purple-400 text-white focus:outline-none focus:ring-0'
+//                 />
+//               ) : (
+//                 <p className='text-lg text-white'>
+//                   {formData[key] || "Not set"}
+//                 </p>
+//               )}
+
+//               <button
+//                 onClick={() => toggleEdit(key)}
+//                 className='absolute top-4 right-4 text-gray-300 hover:text-purple-400'
+//               >
+//                 {editingField === key ? (
+//                   <CheckIcon className='w-5 h-5' />
+//                 ) : (
+//                   <PencilIcon className='w-5 h-5' />
+//                 )}
+//               </button>
+//             </motion.div>
+//           ))}
+//         </div>
+
+//         {/* Save Button */}
+//         <div className='mt-8 flex justify-center'>
+//           <motion.button
+//             whileHover={{ scale: 1.05 }}
+//             whileTap={{ scale: 0.95 }}
+//             className='px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-purple-500/50 transition'
+//             onClick={() => {
+//               // Save all fields when clicking save
+//               Object.keys(formData).forEach((field) =>
+//                 handleChange(field, formData[field])
+//               );
+//               setEditingField(null);
+//             }}
+//           >
+//             Save Changes
+//           </motion.button>
+//         </div>
+//       </motion.div>
+//     </div>
+//   );
+// };
+
+// export default ProfileCard;

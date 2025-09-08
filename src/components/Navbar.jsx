@@ -23,7 +23,12 @@ const Navbar = () => {
   return (
     <div className='navbar bg-velentine shadow-lg'>
       <div className='flex-1 px-2 mx-2'>
-        <a className='btn btn-ghost text-xl'>
+        <a
+          onClick={() => {
+            if (user) navigate("/feed");
+          }}
+          className='btn btn-ghost text-xl'
+        >
           <img
             src={logo}
             alt='DevTinder Logo'
@@ -67,7 +72,10 @@ const Navbar = () => {
                 </a>
               </li>
               <li>
-                <a>Settings</a>
+                <a onClick={() => navigate("/connections")}>Connections</a>
+              </li>
+              <li>
+                <a onClick={() => navigate("/requests")}>Requests</a>
               </li>
               <li>
                 <a onClick={handleLogout}>Logout</a>
