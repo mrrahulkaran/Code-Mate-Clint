@@ -2,18 +2,16 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequests, removeRequest } from "../utils/requestSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const Requests = () => {
   const requests = useSelector((store) => store.requests);
   const dispatch = useDispatch();
 
-  console.log({ requests });
-
   const reviewRequest = async (status, _id) => {
     try {
-      const res = axios.post(
-        BASE_URL + "/request/review/" + status + "/" + _id,
+      await axios.post(
+        `${BASE_URL}/request/review/${status}/${_id}`,
         {},
         { withCredentials: true }
       );
@@ -25,10 +23,9 @@ const Requests = () => {
 
   const fetchRequests = async () => {
     try {
-      const res = await axios.get(BASE_URL + "/user/request/recived", {
+      const res = await axios.get(`${BASE_URL}/user/request/recived`, {
         withCredentials: true,
       });
-      console.log(res.data);
       dispatch(addRequests(res.data));
     } catch (err) {
       console.error("Error fetching requests:", err);
@@ -39,56 +36,68 @@ const Requests = () => {
     fetchRequests();
   }, []);
 
-  if (!requests) return;
+  if (!requests) return null;
 
-  if (requests.length === 0)
-    return <h1 className='flex justify-center my-10'> No Requests Found</h1>;
+  if (!requests.data || requests.data.length === 0)
+    return (
+      <div className='flex justify-center items-center min-h-[60vh] text-gray-600 text-xl font-semibold'>
+        No Requests Found
+      </div>
+    );
 
   return (
-    <div className='text-center my-10'>
-      <h1 className='text-bold text-white text-3xl'>Connection Requests</h1>
+    <div className='max-w-5xl mx-auto my-12 px-4'>
+      <h1 className='text-center text-4xl font-extrabold text-gray-900 mb-12'>
+        Connection Requests
+      </h1>
 
-      {requests.data.map((requests) => {
-        const { _id, firstName, lastName, photoUrl, age, gender, about } =
-          requests.senderId;
+      <div className='flex flex-col gap-6'>
+        {requests.data.map(({ _id, senderId }) => {
+          const { firstName, lastName, photoUrl, age, gender, about } =
+            senderId;
 
-        return (
-          <div
-            key={_id}
-            className=' flex justify-between items-center m-4 p-4 rounded-lg bg-base-300  mx-60'
-          >
-            <div>
+          return (
+            <div
+              key={_id}
+              className='flex items-center justify-between p-6 rounded-xl bg-white shadow hover:shadow-lg transition-shadow'
+            >
               <img
-                alt='photo'
-                className='w-20 h-20 rounded-full'
+                alt={`${firstName} ${lastName}`}
+                className='w-20 h-20 rounded-full object-cover border-2 border-blue-500'
                 src={photoUrl}
+                loading='lazy'
               />
+              <div className='flex-1 mx-6 text-left'>
+                <h2 className='font-semibold text-2xl text-gray-800 truncate'>
+                  {firstName} {lastName}
+                </h2>
+                {age && gender && (
+                  <p className='mt-1 text-gray-600'>
+                    {age}, {gender}
+                  </p>
+                )}
+                <p className='mt-2 text-gray-500 line-clamp-2'>{about}</p>
+              </div>
+              <div className='flex gap-3'>
+                <button
+                  className='btn btn-danger px-5 py-2 rounded-md font-semibold hover:scale-105 transition-transform'
+                  onClick={() => reviewRequest("rejected", _id)}
+                >
+                  Reject
+                </button>
+                <button
+                  className='btn btn-primary px-5 py-2 rounded-md font-semibold hover:scale-105 transition-transform'
+                  onClick={() => reviewRequest("accsepted", _id)}
+                >
+                  Accept
+                </button>
+              </div>
             </div>
-            <div className='text-left mx-4 '>
-              <h2 className='font-bold text-xl'>
-                {firstName + " " + lastName}
-              </h2>
-              {age && gender && <p>{age + ", " + gender}</p>}
-              <p>{about}</p>
-            </div>
-            <div>
-              <button
-                className='btn btn-primary mx-2'
-                onClick={() => reviewRequest("rejected", request._id)}
-              >
-                Reject
-              </button>
-              <button
-                className='btn btn-secondary mx-2'
-                onClick={() => reviewRequest("accepted", request._id)}
-              >
-                Accept
-              </button>
-            </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };
+
 export default Requests;

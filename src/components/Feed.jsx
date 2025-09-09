@@ -4,6 +4,7 @@ import { addFeed } from "../utils/feedSlice.js";
 import { BASE_URL } from "../utils/constants";
 import { useEffect } from "react";
 import UserCard from "./UserCard";
+
 const Feed = () => {
   const feed = useSelector((store) => store.feed);
   const dispatch = useDispatch();
@@ -20,15 +21,15 @@ const Feed = () => {
       console.error("Error fetching feed:", err);
     }
   };
+
   useEffect(() => {
     getFeed();
   }, []);
+
   return (
-    feed && (
-      <div className='flex justify-center my-10'>
-        <UserCard user={feed[0]} />
-      </div>
-    )
+    <div className='pt-20 flex justify-center my-10'>
+      {feed && <UserCard user={feed[0]} />}
+    </div>
   );
 };
 

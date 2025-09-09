@@ -6,13 +6,14 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useEffect } from "react";
 import { BASE_URL } from "../utils/constants.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 console.log(BASE_URL);
 
 function Body() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const fetchUser = async () => {
     try {
@@ -23,8 +24,9 @@ function Body() {
     } catch (error) {
       console.error("Error fetching user:", error);
       if (error.response && error.response.status === 401) {
-        // User is not authenticated
-        navigate("/login");
+        if (location.pathname !== "/signup") {
+          navigate("/login");
+        }
       }
     }
   };
@@ -34,12 +36,12 @@ function Body() {
   }, []);
 
   return (
-    <div className='min-h-screen flex flex-col'>
+    <div className='min-h-screen flex flex-col bg-gradient-to-b from-white to-blue-50 text-gray-900'>
       <Navbar />
-      <div className='flex-1'>
+      <main className='flex-1 container mx-auto px-4 py-8 max-w-5xl w-full'>
         <Outlet />
-      </div>
-      <Footer className='mt-auto' />
+      </main>
+      <Footer />
     </div>
   );
 }
