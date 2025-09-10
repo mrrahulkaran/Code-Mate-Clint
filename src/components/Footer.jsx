@@ -20,9 +20,11 @@ const Footer = () => {
       </aside>
       <nav className='flex gap-6 md:justify-self-end'>
         <a
-          href='#'
-          aria-label='Twitter'
-          className='hover:text-blue-500 transition-colors'
+          href='https://www.linkedin.com/in/rahul-karan-288317373/'
+          aria-label='LinkedIn'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='hover:text-blue-600 transition-colors'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -31,13 +33,15 @@ const Footer = () => {
             viewBox='0 0 24 24'
             className='fill-current'
           >
-            <path d='M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z'></path>
+            <path d='M19 0h-14c-2.8 0-5 2.2-5 5v14c0 2.7 2.2 5 5 5h14c2.7 0 5-2.3 5-5V5c0-2.8-2.3-5-5-5zM8 19H5V9h3v10zM6.5 7.8c-1 0-1.8-.8-1.8-1.8S5.5 4.2 6.5 4.2 8.3 5 8.3 6s-.8 1.8-1.8 1.8zM20 19h-3v-5.6c0-1.3 0-3-1.8-3s-2 1.4-2 2.9V19h-3V9h2.8v1.4h.1c.4-.8 1.5-1.6 3-1.6 3.2 0 3.9 2.1 3.9 4.8V19z' />
           </svg>
         </a>
         <a
-          href='#'
-          aria-label='YouTube'
-          className='hover:text-red-600 transition-colors'
+          href='https://github.com/mrrahulkaran'
+          aria-label='GitHub'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='hover:text-gray-800 transition-colors'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -46,13 +50,15 @@ const Footer = () => {
             viewBox='0 0 24 24'
             className='fill-current'
           >
-            <path d='M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z'></path>
+            <path d='M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.2-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.6 1.1 1.6 1.1 1 .1.8 1.8 2.9 2.3.3-.7.5-1.2.5-1.6-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.6.1-3.3 0 0 1-.3 3.3 1.2a11.2 11.2 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 3 .1 3.3.8.9 1.2 2 1.2 3.3 0 4.6-2.7 5.6-5.3 5.9.4.3.7.9.7 1.8v2.6c0 .3.2.6.8.5 4.6-1.5 7.9-5.9 7.9-10.9C23.5 5.65 18.35.5 12 .5z' />
           </svg>
         </a>
         <a
-          href='#'
-          aria-label='Facebook'
-          className='hover:text-blue-700 transition-colors'
+          href='https://instagram.com/mr_rahul_karan'
+          aria-label='Instagram'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='hover:text-pink-500 transition-colors'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -61,7 +67,24 @@ const Footer = () => {
             viewBox='0 0 24 24'
             className='fill-current'
           >
-            <path d='M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z'></path>
+            <path d='M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zm4.5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.25-2a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5z' />
+          </svg>
+        </a>
+        <a
+          href='https://leetcode.com/u/R_kkrrnn/'
+          aria-label='LeetCode'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='hover:text-yellow-500 transition-colors'
+        >
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='24'
+            height='24'
+            viewBox='0 0 24 24'
+            className='fill-current'
+          >
+            <path d='M16.27 3.55c-.39-.39-1.02-.39-1.41 0l-8.6 8.6c-.39.39-.39 1.02 0 1.41l8.6 8.6c.39.39 1.02.39 1.41 0l1.13-1.13c.39-.39.39-1.02 0-1.41L10.4 12l7-7c.39-.39.39-1.02 0-1.41l-1.13-1.04zM21 11h-8v2h8v-2z' />
           </svg>
         </a>
       </nav>

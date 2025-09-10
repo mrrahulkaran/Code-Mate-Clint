@@ -5,6 +5,7 @@ import { addUser } from "../utils/userSlice";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants.js";
+import logo from "../utils/logo.png";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("rahulkaran@gmail.com");
@@ -39,9 +40,19 @@ const Login = () => {
       <div className='w-full max-w-md bg-white shadow-2xl rounded-xl p-8 glass'>
         <div className='flex flex-col gap-4'>
           {/* Branding */}
-          <h2 className='text-3xl font-bold text-center text-blue-700 mb-2'>
-            Login to CodeMate
-          </h2>
+          <div className='flex justify-center items-center gap-2 mb-4'>
+            {" "}
+            <h2 className='text-3xl font-bold text-center text-blue-700 mb-2'>
+              Login to CodeMate
+            </h2>
+            <img
+              src={logo}
+              alt='DevTinder Logo'
+              className='w-10 h-10 rounded-lg shadow-sm'
+              draggable={false}
+            />
+          </div>
+
           {/* Subtitle */}
           <p className='text-center text-gray-500 mb-4'>
             Connect with top developers
