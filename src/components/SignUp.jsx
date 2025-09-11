@@ -33,7 +33,6 @@ const SignUp = () => {
           withCredentials: true,
         }
       );
-      console.log(res);
 
       dispatch(addUser(res.data));
       console.log(res.data);

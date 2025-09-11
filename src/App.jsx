@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import store from "./utils/appStore";
 import Connections from "./components/Connections";
 import Requests from "./components/Request";
+import ForgetPassword from "./components/ForgetPassword";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route path='/requests' element={<Requests />} />
               <Route path='/feed' element={<Feed />} />
               <Route path='/signup' element={<Signup />} />
+              <Route path='/forgot-password' element={<ForgetPassword />} />
             </Route>
           </Routes>
         </BrowserRouter>

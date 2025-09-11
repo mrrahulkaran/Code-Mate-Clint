@@ -8,8 +8,6 @@ import { useEffect } from "react";
 import { BASE_URL } from "../utils/constants.js";
 import { useNavigate, useLocation } from "react-router-dom";
 
-console.log(BASE_URL);
-
 function Body() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
