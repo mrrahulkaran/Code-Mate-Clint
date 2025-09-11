@@ -59,15 +59,15 @@ const Requests = () => {
           return (
             <div
               key={_id}
-              className='flex items-center justify-between p-6 rounded-xl bg-white shadow hover:shadow-lg transition-shadow'
+              className='flex flex-col sm:flex-row items-center sm:items-start justify-between p-4 sm:p-6 rounded-xl bg-white shadow hover:shadow-lg transition-shadow gap-4'
             >
               <img
                 alt={`${firstName} ${lastName}`}
-                className='w-20 h-20 rounded-full object-cover border-2 border-blue-500'
+                className='w-20 h-20 rounded-full object-cover border-2 border-blue-500 mx-auto sm:mx-0'
                 src={photoUrl}
                 loading='lazy'
               />
-              <div className='flex-1 mx-6 text-left'>
+              <div className='flex-1 w-full sm:mx-6 text-center sm:text-left'>
                 <h2 className='font-semibold text-2xl text-gray-800 truncate'>
                   {firstName} {lastName}
                 </h2>
@@ -78,15 +78,15 @@ const Requests = () => {
                 )}
                 <p className='mt-2 text-gray-500 line-clamp-2'>{about}</p>
               </div>
-              <div className='flex gap-3'>
+              <div className='flex flex-col sm:flex-row gap-3 w-full sm:w-auto'>
                 <button
-                  className='btn btn-danger px-5 py-2 rounded-md font-semibold hover:scale-105 transition-transform'
+                  className='btn px-5 py-2 rounded-md font-semibold transition-colors duration-200 w-full sm:w-auto bg-white border border-red-500 text-red-600 hover:bg-red-600 hover:text-white'
                   onClick={() => reviewRequest("rejected", _id)}
                 >
                   Reject
                 </button>
                 <button
-                  className='btn btn-primary px-5 py-2 rounded-md font-semibold hover:scale-105 transition-transform'
+                  className='btn px-5 py-2 rounded-md font-semibold transition-colors duration-200 w-full sm:w-auto bg-white border border-green-600 text-green-700 hover:bg-green-600 hover:text-white'
                   onClick={() => reviewRequest("accsepted", _id)}
                 >
                   Accept

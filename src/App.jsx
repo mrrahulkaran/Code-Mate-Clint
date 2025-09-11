@@ -1,7 +1,7 @@
 import Body from "./components/Body";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
-import Signup from "./components/Signup";
+import Signup from "./components/SignUp";
 import Feed from "./components/Feed";
 import { Provider } from "react-redux";
 import store from "./utils/appStore";

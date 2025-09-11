@@ -51,7 +51,10 @@ const UserCard = ({ user }) => {
         <h2 className='text-xl font-bold text-gray-900 mb-2 truncate'>
           {firstName} {lastName}
         </h2>
-        <p className='text-gray-600 mb-4 line-clamp-3'>{about}</p>
+        <p className='text-black mb-4 line-clamp-3'>
+          {about ? about : "No bio provided."}
+        </p>
+
         <div className='flex gap-4 mt-auto'>
           <button
             className='flex-1 py-2 rounded-lg border border-green-500 text-green-600 font-semibold hover:bg-green-500 hover:text-white transition-transform duration-200 active:scale-95'

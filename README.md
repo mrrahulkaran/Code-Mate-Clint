@@ -1,8 +1,7 @@
-# CodeMate (Client)
-
 This is the frontend of **CodeMate**, a developer matching web app.
 
 ## Tech Stack
+
 - Vite + React
 - Tailwind CSS
 - Daisy UI
@@ -10,9 +9,9 @@ This is the frontend of **CodeMate**, a developer matching web app.
 - Axios
 
 ## Features
+
 - User signup & login
 - Developer profiles
 - Matchmaking (Interested / Ignore system)
 - Responsive UI with Tailwind + DaisyUI
-
-
+  hi

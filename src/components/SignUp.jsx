@@ -33,7 +33,11 @@ const SignUp = () => {
           withCredentials: true,
         }
       );
+      console.log(res);
+
       dispatch(addUser(res.data));
+      console.log(res.data);
+
       navigate("/profile");
       setShowToast(true);
       setTimeout(() => setShowToast(false), 3000);
