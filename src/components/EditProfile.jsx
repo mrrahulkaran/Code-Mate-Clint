@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import UserCard from "./UserCard";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
@@ -17,6 +18,15 @@ const EditProfile = ({ user }) => {
   const dispatch = useDispatch();
   const [showToast, setShowToast] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setFirstName(user.firstName || "");
+    setLastName(user.lastName || "");
+    setPhotoUrl(user.photoUrl || "");
+    setAge(user.age || "");
+    setGender(user.gender || "");
+    setAbout(user.about || "");
+  }, [user]);
 
   const saveProfile = async () => {
     setError("");

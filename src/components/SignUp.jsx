@@ -37,9 +37,12 @@ const SignUp = () => {
       dispatch(addUser(res.data));
       console.log(res.data);
 
-      navigate("/profile");
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 3000);
+      // Small delay before navigation (e.g., 100 ms)
+      setTimeout(() => {
+        navigate("/profile");
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000);
+      }, 100);
     } catch (error) {
       setErrorMessage(error.response?.data || "Failed to sign up");
     }
