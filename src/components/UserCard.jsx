@@ -23,7 +23,7 @@ const UserCard = ({ user }) => {
       );
       dispatch(removeUserFromFeed(userId));
     } catch (err) {
-      console.error("Error sending request:", err);
+      console.error("Error in sending request:", err);
     }
   };
 
