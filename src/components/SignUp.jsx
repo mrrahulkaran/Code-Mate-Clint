@@ -35,7 +35,6 @@ const SignUp = () => {
       );
 
       dispatch(addUser(res.data));
-      console.log(res.data);
 
       // Small delay before navigation (e.g., 100 ms)
       setTimeout(() => {
