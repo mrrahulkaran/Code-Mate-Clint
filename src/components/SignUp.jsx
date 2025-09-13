@@ -33,8 +33,8 @@ const SignUp = () => {
           withCredentials: true,
         }
       );
-
-      dispatch(addUser(res.data));
+      const userData = res.data.data;
+      await dispatch(addUser(userData));
 
       // Small delay before navigation (e.g., 100 ms)
       setTimeout(() => {
