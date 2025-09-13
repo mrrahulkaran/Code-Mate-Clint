@@ -3,12 +3,13 @@ import EditProfile from "./EditProfile";
 
 const Profile = () => {
   const user = useSelector((store) => store.user);
-  return (
-    user && (
-      <div>
-        <EditProfile user={user} />
-      </div>
-    )
+  return user ? (
+    <div>
+      <EditProfile user={user} />
+    </div>
+  ) : (
+    <div>Loading user data...</div>
   );
 };
+
 export default Profile;
