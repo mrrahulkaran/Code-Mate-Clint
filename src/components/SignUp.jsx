@@ -23,20 +23,12 @@ const SignUp = () => {
     try {
       const res = await axios.post(
         BASE_URL + "/signup",
-        {
-          firstName,
-          lastName,
-          emailId,
-          password,
-        },
-        {
-          withCredentials: true,
-        }
+        { firstName, lastName, emailId, password },
+        { withCredentials: true }
       );
       const userData = res.data.data;
       await dispatch(addUser(userData));
 
-      // Small delay before navigation (e.g., 100 ms)
       setTimeout(() => {
         navigate("/profile");
         setShowToast(true);
@@ -49,9 +41,10 @@ const SignUp = () => {
 
   return (
     <>
-      <div className='flex min-h-[calc(100vh-80px)] items-center justify-center px-4 pt-8'>
-        <div className='w-full max-w-md bg-white rounded-2xl shadow-xl p-8 flex flex-col mx-auto'>
-          <h2 className='text-4xl font-extrabold text-center mb-1 text-blue-700'>
+      <div className='relative flex min-h-[calc(100vh-80px)] items-center justify-center px-4 pt-8 overflow-x-hidden'>
+        <div className='animated-bg'></div>
+        <div className='w-full max-w-md glass-bg shadow-xl p-8 flex flex-col mx-auto animated-fadein z-10'>
+          <h2 className='text-4xl font-extrabold text-center mb-1 text-blue-700 drop-shadow-[0_1.5px_6px_rgb(59,130,246,.25)]'>
             Sign Up
           </h2>
           <p className='text-center text-base mb-5 font-semibold text-blue-600 drop-shadow-glow animate-pulse'>

@@ -2,8 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants.js";
 import logo from "../utils/logo.png";
 
@@ -18,15 +17,9 @@ const Login = () => {
     try {
       const res = await axios.post(
         BASE_URL + "/login",
-        {
-          emailId,
-          password,
-        },
-        {
-          withCredentials: true,
-        }
+        { emailId, password },
+        { withCredentials: true }
       );
-
       dispatch(addUser(res.data));
       return navigate("/feed");
     } catch (err) {
@@ -36,13 +29,13 @@ const Login = () => {
   };
 
   return (
-    <div className='flex min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 justify-center items-center px-4'>
-      <div className='w-full max-w-md bg-white shadow-2xl rounded-xl p-8 glass'>
+    <div className='relative min-h-screen flex justify-center items-center px-4 overflow-x-hidden'>
+      <div className='animated-bg'></div>
+      <div className='w-full max-w-md glass-bg shadow-2xl p-8 animated-fadein z-10'>
         <div className='flex flex-col gap-4'>
           {/* Branding */}
           <div className='flex justify-center items-center gap-2 mb-4'>
-            {" "}
-            <h2 className='text-3xl font-bold text-center text-blue-700 mb-2'>
+            <h2 className='text-3xl font-bold text-center text-blue-700 mb-2 drop-shadow-[0_1.5px_6px_rgb(59,130,246,.25)]'>
               Login to CodeMate
             </h2>
             <img
@@ -52,7 +45,6 @@ const Login = () => {
               draggable={false}
             />
           </div>
-
           {/* Subtitle */}
           <p className='text-center text-gray-500 mb-4'>
             Connect with top developers
@@ -97,7 +89,6 @@ const Login = () => {
                 required
                 className='w-full px-3 py-2 bg-white text-gray-900 border border-gray-300 rounded-lg outline-none focus:border-blue-400 focus:ring focus:ring-blue-200 transition pr-10'
               />
-              {/* Show/hide password toggle can be added here */}
             </div>
             {/* Remember me & forgot password */}
             <div className='flex items-center justify-between mt-4'>
@@ -119,7 +110,7 @@ const Login = () => {
             {/* Action buttons */}
             <button
               type='submit'
-              className='w-full mt-6 btn btn-primary font-semibold py-2 rounded-lg shadow transition hover:scale-105'
+              className='w-full mt-6 btn btn-primary font-semibold py-2 rounded-lg shadow transition-transform hover:scale-105'
             >
               Login
             </button>
@@ -138,5 +129,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;

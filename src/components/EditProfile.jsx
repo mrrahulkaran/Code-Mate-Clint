@@ -25,7 +25,7 @@ const EditProfile = ({ user }) => {
     setAge(user.age || "");
     setGender(user.gender || "");
     setAbout(user.about || "");
-  }, [user]); // Sync local state with user prop whenever it changes
+  }, [user]);
 
   const saveProfile = async () => {
     setError("");
@@ -48,8 +48,12 @@ const EditProfile = ({ user }) => {
 
   return (
     <>
-      <div className='flex flex-col lg:flex-row justify-center items-center min-h-[calc(100vh-80px)] gap-10 px-4 max-w-6xl mx-auto pt-8'>
-        <div className='card w-full max-w-md shadow-xl rounded-lg p-8 bg-white border border-gray-100'>
+      <div className='relative flex flex-col lg:flex-row justify-center items-center min-h-[calc(100vh-80px)] gap-10 px-4 max-w-6xl mx-auto pt-8'>
+        {/* Animated Gradient Background */}
+        <div className='absolute inset-0 -z-10 bg-gradient-animated rounded-3xl' />
+
+        {/* Form Container with Glassmorphism and Fade-In Left Animation */}
+        <div className='card w-full max-w-md shadow-xl rounded-lg p-8 bg-white/70 border border-gray-200 backdrop-blur-md animate-fadeSlideInLeft'>
           <h2 className='text-center text-2xl font-semibold mb-6 text-blue-800'>
             Edit Profile
           </h2>
@@ -86,12 +90,7 @@ const EditProfile = ({ user }) => {
                 setter: setGender,
                 type: "text",
               },
-              {
-                label: "About",
-                value: about,
-                setter: setAbout,
-                type: "text",
-              },
+              { label: "About", value: about, setter: setAbout, type: "text" },
             ].map(({ label, value, setter, type }) => (
               <label
                 key={label}
@@ -111,7 +110,7 @@ const EditProfile = ({ user }) => {
             <div className='mt-4 flex justify-center'>
               <button
                 type='submit'
-                className='btn btn-primary px-6 py-2 rounded-md font-semibold hover:scale-105 transition-transform'
+                className='btn btn-primary px-6 py-2 rounded-md font-semibold hover:scale-105 transition-transform shadow-md hover:shadow-xl'
               >
                 Save Profile
               </button>
@@ -119,7 +118,8 @@ const EditProfile = ({ user }) => {
           </form>
         </div>
 
-        <div className='flex justify-center items-center w-full max-w-md'>
+        {/* UserCard Preview with Scale-Fade Animation */}
+        <div className='flex justify-center items-center w-full max-w-md animate-scaleFadeIn'>
           <UserCard
             user={{ firstName, lastName, photoUrl, age, gender, about }}
           />
@@ -128,11 +128,51 @@ const EditProfile = ({ user }) => {
 
       {showToast && (
         <div className='toast toast-top toast-center z-50'>
-          <div className='alert alert-success shadow-lg'>
+          <div className='alert alert-success shadow-lg drop-shadow-glow'>
             <span>Profile saved successfully.</span>
           </div>
         </div>
       )}
+
+      <style>{`
+        /* Animated Gradient Background */
+        .bg-gradient-animated {
+          background: linear-gradient(270deg, #a5b4fc, #60a5fa, #3b82f6, #2563eb);
+          background-size: 800% 800%;
+          animation: gradientShift 20s ease infinite;
+          border-radius: 1rem;
+          filter: drop-shadow(0 0 25px rgba(59,130,246,0.4));
+        }
+
+        @keyframes gradientShift {
+          0% {background-position: 0% 50%;}
+          50% {background-position: 100% 50%;}
+          100% {background-position: 0% 50%;}
+        }
+
+        /* Fade Slide In Left */
+        @keyframes fadeSlideInLeft {
+          0% { opacity: 0; transform: translateX(-30px);}
+          100% { opacity: 1; transform: translateX(0);}
+        }
+        .animate-fadeSlideInLeft {
+          animation: fadeSlideInLeft 0.8s ease forwards;
+        }
+
+        /* Scale Fade In */
+        @keyframes scaleFadeIn {
+          0% { opacity: 0; transform: scale(0.85);}
+          100% { opacity: 1; transform: scale(1);}
+        }
+        .animate-scaleFadeIn {
+          animation: scaleFadeIn 0.8s ease forwards;
+        }
+
+        /* Toast Shadow Glow */
+        .drop-shadow-glow {
+          text-shadow: 0 0 15px #3b82f6;
+        }
+      `}</style>
     </>
   );
 };

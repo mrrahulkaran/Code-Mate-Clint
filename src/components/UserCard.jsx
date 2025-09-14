@@ -1,28 +1,30 @@
-// UserCard.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedSlice";
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, onRemove }) => {
   const [exiting, setExiting] = useState(false);
-
-  if (!user)
-    return (
-      <div className='flex justify-center items-center h-40 text-lg font-semibold text-red-600 '>
-        Oops! No User Found
-      </div>
-    );
-
-  const { _id, firstName, lastName, photoUrl, age, gender, about } = user;
+  const [slideDirection, setSlideDirection] = useState(""); // "left" or "right"
+  const [show, setShow] = useState(false);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    const timer = setTimeout(() => setShow(true), 20);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!user) return <div>Oops! No User Found</div>;
+
+  const { _id, firstName, lastName, photoUrl, age, gender, about } = user;
+
   const animateAndRemove = (status, userId) => {
+    setSlideDirection(status === "intrested" ? "right" : "left");
     setExiting(true);
     setTimeout(() => {
       handleSendRequest(status, userId);
-    }, 300); // Match CSS animation time
+    }, 300);
   };
 
   const handleSendRequest = async (status, userId) => {
@@ -33,36 +35,60 @@ const UserCard = ({ user }) => {
         { withCredentials: true }
       );
       dispatch(removeUserFromFeed(userId));
+      if (onRemove) onRemove(userId);
     } catch (err) {
       console.error("Error in sending request:", err);
-      setExiting(false); // Reset animation state on error
+      setExiting(false);
     }
   };
 
   return (
     <>
-      <style>
-        {`
-          @keyframes slideIn {
-            from { opacity: 0; transform: translateX(100%); }
-            to { opacity: 1; transform: translateX(0); }
-          }
-          @keyframes slideOut {
-            from { opacity: 1; transform: translateX(0); }
-            to { opacity: 0; transform: translateX(-100%); }
-          }
-          .animate-slideIn {
-            animation: slideIn 0.3s ease forwards;
-          }
-          .animate-slideOut {
-            animation: slideOut 0.3s ease forwards;
-          }
-        `}
-      </style>
+      <style>{`
+        @keyframes slideIn {
+          from { opacity: 0; transform: translateX(100%); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideOutRight {
+          from { opacity: 1; transform: translateX(0); }
+          to { opacity: 0; transform: translateX(100%); }
+        }
+        @keyframes slideOutLeft {
+          from { opacity: 1; transform: translateX(0); }
+          to { opacity: 0; transform: translateX(-100%); }
+        }
+        .animate-slideIn {
+          animation: slideIn 0.3s ease forwards;
+        }
+        .animate-slideOut-right {
+          animation: slideOutRight 0.3s ease forwards;
+        }
+        .animate-slideOut-left {
+          animation: slideOutLeft 0.3s ease forwards;
+        }
+        .usercard-hover:hover {
+          transform: scale(1.04);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+          transition: transform 0.3s, box-shadow 0.3s;
+          cursor: pointer;
+        }
+        .usercard {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+      `}</style>
       <article
-        className={`w-full max-w-sm bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 item-center ${
-          exiting ? "animate-slideOut" : "animate-slideIn"
-        }`}
+        className={`w-full max-w-sm bg-white rounded-2xl shadow-lg overflow-hidden 
+          ${
+            exiting
+              ? slideDirection === "right"
+                ? "animate-slideOut-right"
+                : "animate-slideOut-left"
+              : show
+              ? "animate-slideIn"
+              : ""
+          }
+          usercard usercard-hover
+        `}
       >
         <div className='relative'>
           <img
@@ -91,19 +117,22 @@ const UserCard = ({ user }) => {
           </p>
 
           <div className='flex gap-6 justify-center mt-auto'>
-            <button
-              className='flex-1 py-3 rounded-full border border-green-500 text-green-600 font-semibold hover:bg-green-500 hover:text-white transition-transform duration-200 active:scale-95'
-              onClick={() => animateAndRemove("intrested", _id)}
-              aria-label={`Express interest in ${firstName} ${lastName}`}
-            >
-              Interested
-            </button>
+            {/* Ignore button on the left */}
             <button
               className='flex-1 py-3 rounded-full border border-red-500 text-red-600 font-semibold hover:bg-red-500 hover:text-white transition-transform duration-200 active:scale-95'
               onClick={() => animateAndRemove("ignored", _id)}
               aria-label={`Ignore ${firstName} ${lastName}`}
             >
               Ignore
+            </button>
+
+            {/* Interested button on the right */}
+            <button
+              className='flex-1 py-3 rounded-full border border-green-500 text-green-600 font-semibold hover:bg-green-500 hover:text-white transition-transform duration-200 active:scale-95'
+              onClick={() => animateAndRemove("intrested", _id)}
+              aria-label={`Express interest in ${firstName} ${lastName}`}
+            >
+              Interested
             </button>
           </div>
         </div>

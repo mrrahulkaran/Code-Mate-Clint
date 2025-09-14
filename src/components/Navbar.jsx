@@ -13,6 +13,13 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const [navScrolled, setNavScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setNavScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -24,7 +31,6 @@ const Navbar = () => {
     }
   };
 
-  // Close dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -37,13 +43,14 @@ const Navbar = () => {
     };
   }, []);
 
-  // Toggle dropdown open state
-  const toggleDropdown = () => {
-    setDropdownOpen((prev) => !prev);
-  };
+  const toggleDropdown = () => setDropdownOpen((prev) => !prev);
 
   return (
-    <header className='bg-white shadow-lg fixed top-0 left-0 right-0 z-50 select-none'>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 select-none backdrop-blur-md bg-white/70 border-b border-blue-200 transition-shadow duration-300 ${
+        navScrolled ? "shadow-lg border-blue-400" : "shadow-sm border-blue-200"
+      }`}
+    >
       <nav className='container mx-auto flex justify-between items-center h-20 px-4 md:px-8'>
         {/* Left: Logo/Brand */}
         <div
@@ -59,11 +66,12 @@ const Navbar = () => {
           <img
             src={logo}
             alt='DevTinder Logo'
-            className='w-10 h-10 rounded-lg shadow-sm'
             draggable={false}
+            className='w-10 h-10 rounded-lg shadow-sm transition-transform duration-300 ease-in-out hover:scale-110 hover:-rotate-3 hover:shadow-lg'
           />
-          <span className='text-2xl font-bold tracking-tight text-blue-700'>
+          <span className='text-2xl font-bold tracking-tight text-blue-700 relative cursor-pointer group'>
             CodeMate
+            <span className='absolute bottom-[-6px] left-0 w-full h-[3px] bg-gradient-to-r from-blue-500 to-blue-300 scale-x-0 origin-right transition-transform duration-300 group-hover:scale-x-100 group-hover:origin-left rounded' />
           </span>
         </div>
 
@@ -78,7 +86,7 @@ const Navbar = () => {
               aria-haspopup='menu'
               aria-expanded={dropdownOpen}
               onClick={toggleDropdown}
-              className='focus:outline-none flex items-center gap-1'
+              className='focus:outline-none flex items-center gap-1 user-menu-button'
               aria-label='User menu toggle'
             >
               <img
@@ -91,23 +99,23 @@ const Navbar = () => {
                 draggable={false}
               />
               <svg
-                className={`w-4 h-4 transition-transform ${
+                className={`w-4 h-4 transition-transform duration-300 ease-in-out ${
                   dropdownOpen ? "rotate-180 text-blue-500" : "text-gray-400"
                 } ml-1`}
                 fill='currentColor'
                 viewBox='0 0 20 20'
               >
-                <path d='M5.23 7.21a.75.75 0 011.06.02L10 11.187l3.71-3.956a.75.75 0 111.08 1.04l-4.25 4.528a.75.75 0 01-1.08 0l-4.25-4.528a.75.75 0 01.02-1.06z'></path>
+                <path d='M5.23 7.21a.75.75 0 011.06.02L10 11.187l3.71-3.956a.75.75 0 111.08 1.04l-4.25 4.528a.75.75 0 01-1.08 0l-4.25-4.528a.75.75 0 01.02-1.06z' />
               </svg>
             </button>
 
             {/* Dropdown Menu */}
             <ul
-              className={`absolute right-0 w-56 bg-white border border-gray-100 rounded-xl shadow-lg py-2 z-50 transition-opacity duration-200 ${
+              className={`absolute right-0 w-56 bg-white border border-gray-100 rounded-xl shadow-lg py-2 z-50 max-h-96 overflow-auto transition-transform transition-opacity duration-300 ${
                 dropdownOpen
-                  ? "opacity-100 pointer-events-auto"
-                  : "opacity-0 pointer-events-none"
-              } max-h-96 overflow-auto`}
+                  ? "opacity-100 translate-y-0 pointer-events-auto"
+                  : "opacity-0 -translate-y-2 pointer-events-none"
+              }`}
               role='menu'
               aria-label='User menu'
               style={{ top: "80px" }}
