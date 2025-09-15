@@ -9,6 +9,13 @@ import Connections from "./components/Connections";
 import Requests from "./components/Request";
 import ForgetPassword from "./components/ForgetPassword";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+
+import Refund from "./pages/Refund";
+import Team from "./pages/Team";
+import Contact from "./pages/Contact";
+
 function App() {
   return (
     <div data-theme='light'>
@@ -23,6 +30,11 @@ function App() {
               <Route path='/feed' element={<Feed />} />
               <Route path='/signup' element={<Signup />} />
               <Route path='/forgot-password' element={<ForgetPassword />} />
+              <Route path='/terms' element={<Terms />} />
+              <Route path='/privacy' element={<Privacy />} />
+              <Route path='/refund' element={<Refund />} />
+              <Route path='/team' element={<Team />} />
+              <Route path='/contact' element={<Contact />} />
             </Route>
           </Routes>
         </BrowserRouter>
