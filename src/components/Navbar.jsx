@@ -138,6 +138,18 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={() => {
+                    navigate("/feed");
+                    setDropdownOpen(false);
+                  }}
+                  className='w-full text-left px-4 py-2 hover:bg-blue-50 rounded transition'
+                  role='menuitem'
+                >
+                  Feed
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
                     navigate("/connections");
                     setDropdownOpen(false);
                   }}

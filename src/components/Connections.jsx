@@ -39,7 +39,7 @@ const Connections = () => {
     <div className='relative max-w-5xl mx-auto my-12 px-4 overflow-hidden'>
       <div className='animated-bg-connections'></div>
 
-      <h1 className='text-center text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text drop-shadow-lg mb-12'>
+      <h1 className='text-center text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-blue-400 text-transparent bg-clip-text drop-shadow-lg mb-12 mt-4'>
         Connections
       </h1>
 
